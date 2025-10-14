@@ -13,7 +13,7 @@ class NoteListview extends StatelessWidget {
         }, 
         separatorBuilder: (context, index) {
           return SizedBox(
-            height: 20,
+            height: 8,
           );
         }, 
         itemCount: 10
