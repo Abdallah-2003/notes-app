@@ -24,7 +24,7 @@ class _NoteFormState extends State<NoteForm> {
     return Form(
       key: formKey,
       autovalidateMode: autovalidateMode,
-      
+
       child: Column(
         children: [
           CustomTextField(
@@ -33,7 +33,7 @@ class _NoteFormState extends State<NoteForm> {
             },
             hint: 'Title',
           ),
-          SizedBox(height: 24,),
+          SizedBox(height: 24),
           CustomTextField(
             onSaved: (value) {
               content = value;
@@ -41,27 +41,30 @@ class _NoteFormState extends State<NoteForm> {
             hint: 'Content',
             maxlines: 6,
           ),
-          const SizedBox(height: 60,),
-          CustomNoteBottom(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                var note = NoteModel(
-                  title: title!, 
-                  content: content!, 
-                  date: DateTime.now().toString(), 
-                  color: Colors.purpleAccent.value
-                );
-                BlocProvider.of<AddNoteCubit>(context).addNote(note);
-              } else {
-                autovalidateMode = AutovalidateMode.always;
-                setState(() {
-                  
-                });
-              }
+          const SizedBox(height: 60),
+          BlocBuilder<AddNoteCubit, AddNoteState>(
+            builder: (context, state) {
+              return CustomNoteBottom(
+                isLoading: state is AddNoteLoading ? true : false,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    var note = NoteModel(
+                      title: title!,
+                      content: content!,
+                      date: DateTime.now().toString(),
+                      color: Colors.purpleAccent.value,
+                    );
+                    BlocProvider.of<AddNoteCubit>(context).addNote(note);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+              );
             },
           ),
-          const SizedBox(height: 32,),
+          const SizedBox(height: 32),
         ],
       ),
     );

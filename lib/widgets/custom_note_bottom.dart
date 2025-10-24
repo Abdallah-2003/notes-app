@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constant.dart';
 
 class CustomNoteBottom extends StatelessWidget {
-  const CustomNoteBottom({super.key, required this.onTap});
+  const CustomNoteBottom({
+    super.key,
+    required this.onTap,
+    this.isLoading = false,
+  });
 
   final void Function()? onTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +20,22 @@ class CustomNoteBottom extends StatelessWidget {
         height: 45,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: kPrimaryColor 
+          color: kPrimaryColor,
         ),
-        child: Center(
-          child: Text(
-            'Add',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20
-            ),
-          ),
-        ),
+        child: isLoading
+            ? Center(child: SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            ))
+            : Center(
+                child: Text(
+                  'Add',
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ),
+              ),
       ),
     );
   }
