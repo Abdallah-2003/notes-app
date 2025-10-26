@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
-class CustomSearchIcon extends StatelessWidget {
-  const CustomSearchIcon({super.key, required this.icon});
-  
+class CustomIcon extends StatelessWidget {
+  const CustomIcon({super.key, required this.icon, this.onTap});
+
   final IconData icon;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white.withAlpha(15)
-      ),
-      child: Icon(
-        icon
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white.withAlpha(15),
+        ),
+        child: Icon(icon),
       ),
     );
   }
