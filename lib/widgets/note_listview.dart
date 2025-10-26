@@ -11,7 +11,7 @@ class NoteListview extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
-        List<NoteModel> notes = BlocProvider.of<NotesCubit>(context).notes ?? [];
+        List<NoteModel> notes = BlocProvider.of<NotesCubit>(context).notes!;
         return Expanded(
           child: ListView.separated(
             itemBuilder: (context, index) {

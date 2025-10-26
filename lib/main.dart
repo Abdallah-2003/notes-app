@@ -23,9 +23,10 @@ class NotesApp extends StatelessWidget {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(NoteModelAdapter());
-  Hive.openBox<NoteModel>(kNotesBox);
+  await Hive.openBox<NoteModel>(kNotesBox);
   Bloc.observer = SimpleBlocObserver();
   runApp(const NotesApp());
 }
